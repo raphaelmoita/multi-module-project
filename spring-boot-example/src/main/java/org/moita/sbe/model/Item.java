@@ -42,6 +42,9 @@ public class Item {
 		return Objects.equals(description, that.description) 
 			   && Objects.equals(id, that.id);
 	}
-	
 
+	@Override
+	public String toString() {
+		return String.format("Item [id='%s', description='%s']", id, description);
+	}
 }
