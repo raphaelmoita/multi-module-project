@@ -20,14 +20,14 @@ public class ItemAspect {
 		System.out.println(Arrays.toString(joinPoint.getArgs()));
 		System.out.println("Service method add called");
 	}
-
+	
 	@AfterReturning(pointcut = "execution(* org.moita.sbe.persistence.ItemDAO.list())", returning = "result")
 	public void returnedFrom(JoinPoint joinPoint, Object result) {
 		System.out.println("hijacked : " + joinPoint.getSignature().getName());
 		System.out.println("Method returned value is : " + result);
 	}
 
-	@Around("execution(* org.moita.sbe.persistence.ItemDAO.add(..))")
+	@Around("execution(* org.moita.sbe.persistence..*(..))")
 	public Object timeElapsed(ProceedingJoinPoint joinPoint) throws Throwable {
 		long start = System.currentTimeMillis();
 		Object proceed = joinPoint.proceed();
@@ -38,10 +38,7 @@ public class ItemAspect {
 	
 	@Around("execution(* org.moita.sbe.persistence.ItemDAO.add(..))")
 	public Object enrich(ProceedingJoinPoint joinPoint) throws Throwable {
-		long start = System.currentTimeMillis();
 		Object proceed = joinPoint.proceed(this.enrichItem(joinPoint.getArgs()));
-		long executionTime = System.currentTimeMillis() - start;
-		System.out.println(joinPoint.getSignature() + " executed in " + executionTime + "ms");
 		return proceed;
 	}
 	
