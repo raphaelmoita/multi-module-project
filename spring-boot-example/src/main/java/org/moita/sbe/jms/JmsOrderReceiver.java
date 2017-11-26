@@ -1,7 +1,7 @@
 package org.moita.sbe.jms;
 import javax.jms.JMSException;
 
-import org.moita.sbe.jms.config.MessagingConfiguration;
+import org.moita.sbe.jms.config.P2PConfig;
 import org.moita.sbe.jms.model.Order;
 import org.moita.sbe.jms.service.OrderService;
 import org.slf4j.Logger;
@@ -13,13 +13,13 @@ import org.springframework.messaging.MessageHeaders;
 import org.springframework.stereotype.Component;
  
 @Component
-public class MessageReceiver {
-    static final Logger LOG = LoggerFactory.getLogger(MessageReceiver.class);
+public class JmsOrderReceiver {
+    static final Logger LOG = LoggerFactory.getLogger(JmsOrderReceiver.class);
  
     @Autowired
     OrderService orderService;
     
-    @JmsListener(destination = MessagingConfiguration.ORDER_QUEUE)
+    @JmsListener(destination = P2PConfig.QUEUE, containerFactory = "jmsListenerP2PContainerFactory")
     public void receiveOrder(final Message<Order> message) throws JMSException {
         MessageHeaders headers =  message.getHeaders();
         LOG.info("Application : headers received : {}", headers);

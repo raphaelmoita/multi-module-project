@@ -18,8 +18,14 @@ public class OrderRestController {
 	OrderService orderService;
 
 	@PostMapping("/new")
-	public ResponseEntity<Order> sendOrder(@RequestBody Order order) {
-		orderService.sendOrder(order);
+	public ResponseEntity<Order> sendOrderToQueue(@RequestBody Order order) {
+		orderService.send(order);
+		return new ResponseEntity<Order>(order, HttpStatus.OK);
+	}
+	
+	@PostMapping("/pub")
+	public ResponseEntity<Order> publishOrder(@RequestBody Order order) {
+		orderService.publish(order);
 		return new ResponseEntity<Order>(order, HttpStatus.OK);
 	}
 }
