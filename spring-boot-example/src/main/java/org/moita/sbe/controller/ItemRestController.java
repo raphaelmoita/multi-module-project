@@ -32,11 +32,11 @@ public class ItemRestController {
 		return new ResponseEntity<Collection<Item>>(list, HttpStatus.OK);
     }	
 	
-	@GetMapping("/get")
+	@GetMapping("/get/{id}")
     public ResponseEntity<Item> get(@PathVariable Long id) {
     	Item item = service.get(id);
     	if(item == null){
-            return new ResponseEntity<Item>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Item>(HttpStatus.NO_CONTENT);
         }
     	return new ResponseEntity<Item>(item, HttpStatus.OK);
     }
