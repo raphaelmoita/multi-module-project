@@ -1,6 +1,9 @@
 package org.moita.sbe.jms.model;
 
 import java.io.Serializable;
+import java.util.Objects;
+
+import org.moita.sbe.model.Item;
 
 public class Order implements Serializable {
 
@@ -48,27 +51,18 @@ public class Order implements Serializable {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((orderId == null) ? 0 : orderId.hashCode());
-		return result;
+		return Objects.hash(orderId, productName, quantity, status);
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Order other = (Order) obj;
-		if (orderId == null) {
-			if (other.orderId != null)
-				return false;
-		} else if (!orderId.equals(other.orderId))
-			return false;
-		return true;
+		if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Order that = (Order) obj;
+		return orderId == that.orderId 
+			&& Objects.equals(productName, that.productName)
+			&& Objects.equals(quantity, that.quantity)
+			&& Objects.equals(status, that.status);
 	}
 
 	@Override

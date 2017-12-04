@@ -99,7 +99,6 @@ public class ItemRestControllerTest {
 			     .accept(MediaType.APPLICATION_JSON)
 			     .build();
 		
-		// return 209. Why?
 		ResponseEntity<List<Item>> listResponse = this.restTemplate.exchange(request, new ParameterizedTypeReference<List<Item>>(){});
 		assertThat(listResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(listResponse.getBody().size()).isEqualTo(1);
