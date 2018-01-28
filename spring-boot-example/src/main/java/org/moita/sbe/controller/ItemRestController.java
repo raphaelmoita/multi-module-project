@@ -1,5 +1,6 @@
 package org.moita.sbe.controller;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import org.moita.sbe.model.Item;
@@ -43,7 +44,11 @@ public class ItemRestController {
 	
 	@PostMapping(value = "/add")
     public ResponseEntity<Item> add(@RequestBody Item item) {
-    	service.add(item);
+    	try {
+			service.add(item);
+		} catch (IOException e) {
+			return new ResponseEntity<Item>(item, HttpStatus.FORBIDDEN);
+		}
     	return new ResponseEntity<Item>(item, HttpStatus.OK);
     }
 	

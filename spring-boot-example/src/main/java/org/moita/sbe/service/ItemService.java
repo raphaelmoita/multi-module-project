@@ -1,5 +1,6 @@
 package org.moita.sbe.service;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import org.moita.sbe.model.Item;
@@ -19,8 +20,12 @@ public class ItemService implements Service {
 	}
 	
 	@Override
-	public void add(Item item) {
-		dao.add(item);
+	public void add(Item item) throws IOException {
+		if (dao.get(item.getId()) == null) {
+			dao.add(item);
+		} else {
+			throw new IOException("Item already exists.");
+		}
 		System.out.println("Added!!!");
 	}
 	
