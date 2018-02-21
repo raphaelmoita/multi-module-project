@@ -50,3 +50,5 @@
    - class annotated with @RestController (rest WS)
    - ? Changing the base URI - https://docs.spring.io/spring-data/rest/docs/current/reference/html/#_changing_the_base_uri
    
+8) maven wrapper: https://howtoprogram.xyz/2016/09/11/maven-wrapper-example/    
+   
